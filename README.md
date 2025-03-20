@@ -1,1 +1,129 @@
-# Primary-Key-Bakery
+# **Primary-Key-Bakery**
+
+## **Team 6 - MIST 4610 Group Project 1**
+
+### **Team Name:**  
+MIST4610.47114.20254 Spring 2025 SEC - 6  
+
+### **Team Members:**  
+- **Luke Eckert** - [@Luke-Eckert](https://github.com/Luke-Eckert)  
+- **Elyse Robbins** - [@elyserobbins](https://github.com/elyserobbins)  
+- **Claire Lee** - [@clairerlee](https://github.com/clairerlee)  
+- **Elliot Wallace** - [@e8w-9837](https://github.com/e8w-9837)  
+
+---
+
+## **Problem Description**
+The task at hand is to model and build a relational database for the general workings of a bakery business. The central entity in the model is the **Bakery** entity, representing each physical bakery location that the company owns and operates in various areas. 
+
+The bakery operates in conjunction with the **products** it sells, the **ingredients** it sources, the **suppliers** it works with, and the **customers** who purchase from them, whether in-store or via special orders.
+
+We are interested in accurately modeling these relationships, generating sample data, and populating the entities and their attributes with this sample data. Furthermore, we will perform **functional queries** to provide valuable business insights about the bakery’s operations, such as:
+- Tracking **best-selling products**
+- Monitoring **ingredient inventory**
+- Evaluating **supplier reliability**
+- Analyzing **customer purchasing trends**
+
+---
+
+## **Data Model**
+Our data model represents a bakery named **Primary Key Pastries**. The model accurately depicts the essential **entities** and their **relationships**, supporting different facets of the business such as staffing, inventory, and payments.
+
+### **Key Entities:**
+1. **Suppliers**
+   - Represents different vendors from which our bakery gets raw materials.
+   - Attributes: `SupplierID (PK)`, `Name`, `Contact Info`, `Product Provided`
+   - Suppliers can provide multiple **ingredients**.
+
+2. **Ingredients**
+   - Each ingredient has a **unique identifier** and is linked to a **supplier**.
+   - Attributes: `IngredientID (PK)`, `Name`, `SupplierID (FK)`, `Quantity`, `Cost per Unit`, `Expiration Date`
+
+3. **Products**
+   - Represents all items available for sale in the bakery.
+   - Attributes: `ProductID (PK)`, `Name`, `Category`, `Price`, `Availability`
+   - **Many-to-Many** relationship with **Ingredients** through `Products_Ingredients`.
+
+4. **Customers**
+   - Stores customer details and **loyalty program status**.
+   - Attributes: `CustomerID (PK)`, `Name`, `Contact Info`, `Loyalty Status`
+
+5. **Orders**
+   - Represents each purchase made by customers.
+   - Attributes: `OrderID (PK)`, `CustomerID (FK)`, `OrderDate`, `TotalCost`, `OrderStatus`
+   - **Many-to-Many** relationship with **Products** through `Order_Items`.
+
+6. **Employees**
+   - Tracks bakery staff details.
+   - Attributes: `EmployeeID (PK)`, `Name`, `Role`, `Salary`, `Work Schedule`
+   - **Linked to Orders** through `Employee_Orders`.
+
+7. **Relationships & Associative Entities:**
+   - **Products_Ingredients** (`ProductID (FK)`, `IngredientID (FK)`, `Quantity`)
+   - **Order_Items** (`OrderItemID (PK)`, `OrderID (FK)`, `ProductID (FK)`, `Quantity`, `Subtotal`)
+   - **Employee_Orders** (`EmployeeID (FK)`, `OrderID (FK)`, `Role`)
+
+---
+
+## **Data Dictionary**
+
+| **Table Name**        | **Description** |
+|----------------------|----------------|
+| **Customers**       | Stores customer details and loyalty information |
+| **Employees**       | Tracks bakery staff roles, salaries, and schedules |
+| **Employee_Orders** | Links employees to the orders they handle |
+| **Employee_Assignments** | Tracks tasks assigned to employees |
+| **Ingredients**     | Stores raw ingredients data and suppliers |
+| **Order_Items**     | Links orders to products and tracks quantities |
+| **Orders**         | Records customer purchases and order statuses |
+| **Product_Ingredients** | Links products to their ingredients |
+| **Products**       | Stores all bakery products for sale |
+| **Suppliers**      | Stores supplier details and ingredients provided |
+
+---
+
+## **Queries**
+
+### **Simple Queries**
+1. **Retrieve all orders placed by a specific customer (CustomerID = 1010).**
+   - Helps track customer purchase history and analyze buying habits.
+
+2. **Retrieve all orders that are still pending and have not yet been processed.**
+   - Helps bakery managers prioritize order fulfillment.
+
+3. **Retrieve names and contact information of customers who have made at least one purchase.**
+   - Identifies active customers for loyalty programs.
+
+4. **Retrieve names and contact information of customers whose names begin with 'A' or 'B'.**
+   - Segments customers for targeted marketing campaigns.
+
+### **Complex Queries**
+5. **Retrieve details on which employees handled specific customer orders.**
+   - Ensures accountability and workload balance.
+
+6. **Calculate total revenue generated by each product.**
+   - Helps identify best-selling and underperforming items.
+
+7. **Retrieve products that have never been purchased.**
+   - Helps managers refine inventory and promotions.
+
+8. **Retrieve suppliers providing the highest number of ingredients.**
+   - Optimizes supplier relationships and supply chain management.
+
+9. **Identify the most ordered product and total quantity sold.**
+   - Helps inform inventory planning and pricing strategies.
+
+---
+
+## **Database Information**
+**Database Name:** `al_Group_47114_G6`
+
+---
+
+## **Additional Resources**
+- **Image Hosting:** [Snipboard](https://snipboard.io/)
+- **GitHub Profile Links:**
+  - [Elyse Robbins](https://github.com/elyserobbins)
+  - [Luke Eckert](https://github.com/Luke-Eckert)
+  - [Claire Lee](https://github.com/clairerlee)
+  - [Elliot Wallace](https://github.com/e8w-9837)
