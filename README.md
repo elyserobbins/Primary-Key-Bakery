@@ -27,41 +27,15 @@ We are interested in accurately modeling these relationships, generating sample 
 ---
 
 ## **Data Model**
-Our data model represents a bakery named **Primary Key Pastries**. The model accurately depicts the essential **entities** and their **relationships**, supporting different facets of the business such as staffing, inventory, and payments.
-
-### **Key Entities:**
-1. **Suppliers**
-   - Represents different vendors from which our bakery gets raw materials.
-   - Attributes: `SupplierID (PK)`, `Name`, `Contact Info`, `Product Provided`
-   - Suppliers can provide multiple **ingredients**.
-
-2. **Ingredients**
-   - Each ingredient has a **unique identifier** and is linked to a **supplier**.
-   - Attributes: `IngredientID (PK)`, `Name`, `SupplierID (FK)`, `Quantity`, `Cost per Unit`, `Expiration Date`
-
-3. **Products**
-   - Represents all items available for sale in the bakery.
-   - Attributes: `ProductID (PK)`, `Name`, `Category`, `Price`, `Availability`
-   - **Many-to-Many** relationship with **Ingredients** through `Products_Ingredients`.
-
-4. **Customers**
-   - Stores customer details and **loyalty program status**.
-   - Attributes: `CustomerID (PK)`, `Name`, `Contact Info`, `Loyalty Status`
-
-5. **Orders**
-   - Represents each purchase made by customers.
-   - Attributes: `OrderID (PK)`, `CustomerID (FK)`, `OrderDate`, `TotalCost`, `OrderStatus`
-   - **Many-to-Many** relationship with **Products** through `Order_Items`.
-
-6. **Employees**
-   - Tracks bakery staff details.
-   - Attributes: `EmployeeID (PK)`, `Name`, `Role`, `Salary`, `Work Schedule`
-   - **Linked to Orders** through `Employee_Orders`.
-
-7. **Relationships & Associative Entities:**
-   - **Products_Ingredients** (`ProductID (FK)`, `IngredientID (FK)`, `Quantity`)
-   - **Order_Items** (`OrderItemID (PK)`, `OrderID (FK)`, `ProductID (FK)`, `Quantity`, `Subtotal`)
-   - **Employee_Orders** (`EmployeeID (FK)`, `OrderID (FK)`, `Role`)
+   First off, the supplier entity represents the different vendors from which our bakery gets its raw materials. Within this entity, we have the primary key (supplierID), as well as the name of supplier, their contact info, and information about the product that they provide. Suppliers can provide multiple ingredients. Each ingredient is identified by a unique IngredientsID and has a name, a reference to its supplier (foreign key), a quantity, a cost per unit, and an expiration date.
+   
+   Ingredients and Products have a many to many relationship - connected by a table named “Products_Ingredients”. The Products entity contains all items that are available for sale in the bakery, which includes attributes such as the Name, Category, Price, and Availability of the product. In the Product_Ingredients entity there are two foreign keys pulled from Products (ProductID) and Ingredients (IngredientID), as well as the attribute Quantity required for making each product.  
+   
+   The Customers table maintains records of customer details such as names, contact information, and loyalty program status. Customers place Orders, forming a one-to-many relationship where a customer can have multiple orders. The Orders entity contains order-specific details such as order date, total cost, and order status. Since each order consists of multiple products, we introduce the Order_Items table, which links Orders to Products in a many-to-many relationship. This table tracks the quantity of each product in an order and its subtotal.
+   
+   The Products entity also has a many to many relationship with the Orders entity, connected by the associative entity Order_Items. Within the Order_Items table, there is its own primary key (OrderItemID), as well as two forging keys that are pulled from the Orders entity and the Products entity. Regarding the attributes in the Order_Items table, there is the quantity of the items in the order, as well as the subtotal of the order. Regarding the Orders entity, it has its own primary key (OrderID), as well as a foreign key from the Customers table. Regarding its own attributes not related to other tables, the OrderDate, OrderStatus, and TotalCost of the order is also tracked within the Orders table. Related to the Orders entity is the Customers entity, as one customer can have many orders. Within the Customers entity, there is a primary key (CustomerID), as well as the name of the customer, contact information, and the customer's status within the bakery’s loyalty program.
+   
+   The Employees table records bakery staff details, including their names, roles, salaries, and work schedules. Employees are assigned to specific tasks via the Employee_Assignments table, which tracks the task description and assignment dates. Employees also play a role in fulfilling orders, which is represented by the Employees_Orders table. This entity captures which employees are responsible for each order and their roles in the process (e.g., cashier, baker, delivery).
 
 ---
 
